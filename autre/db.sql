@@ -1,7 +1,7 @@
-CREATE DATABASE reservation;
+CREATE DATABASE voyage;
 
 
-USE reservation; 
+USE voyage; 
 
 CREATE TABLE client (
     id_client INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -32,7 +32,6 @@ CREATE TABLE reservation (
     id_activite INT(11),  
     statut ENUM('En attente', 'Confirmée', 'Annulée') NOT NULL,
     date_reservation TIMESTAMP  NOT NULL,
-    montant DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (id_client) REFERENCES client(id_client), 
     FOREIGN KEY (id_activite) REFERENCES activite(id_activite)
 );
@@ -95,6 +94,7 @@ VALUES
 (5, 1, "2024-12-12", 'Confirmée');
 
 
+select r.id_reservation , c.nom ,  c.prenom , a.titre , r.statut , r.montant , r.date_reservation  from reservation r  inner join client c on r.id_client = c.id_client inner join activite a on a.id_activite = r.id_activite
 
 
 UPDATE client SET nom = "Ines", telephone = "0600000" WHERE id_client=1;
@@ -113,3 +113,9 @@ on a.id_activite = r.id_activite
 INNER JOIN client as c 
 on c.id_client = r.id_client
 where c.nom = "Omar"
+
+
+
+select r.id_reservation ,a.titre ,  c.nom  , c.prenom , r.statut ,r.date_reservation   from reservation as r  
+inner join activite as a  on a.id_activite = r.id_activite 
+inner join  client as c  on c.id_client = r.id_client
