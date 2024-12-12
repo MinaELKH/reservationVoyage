@@ -16,179 +16,125 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"> <!-- icon reseau sociaux-->
     <link rel="stylesheet" href="./styles/index.css" />
     <script src="js/main.js" defer></script>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/style.css" />
 
 
 </head>
 
 <body class=" flex flex-col relative bg-[url('img/map3.png')] bg-[#FAF5F1] no-repeat bg-cover    kanit-medium">
-<div class=" flex">
-<aside class="   bg-white bg-opacity-80  w-1/4 p-2 pt-10">
-           <div >    
-                    <img  class="mx-auto" src="img/logo.png" width="100" alt="logo">
+    <div class=" flex ">
+        <aside class="   bg-white bg-opacity-80   border-2 border-orange-100 rounded-xl w-1/4 p-2 pt-10">
+            <div>
+                <img class="mx-auto" src="img/logo.png" width="100" alt="logo">
             </div>
-                <div class="  p-4 bg-white bg-opacity-40 flex justify-between items-center">
-                    <span class="text-[#264180] text-xl font-semibold"> Gestion d'agence </span>
-                </div>
+            <div class="  p-4 bg-white bg-opacity-40 flex justify-between items-center">
+                <span class="text-[#264180] text-xl font-semibold"> Gestion d'agence </span>
+            </div>
 
-                <nav id="menu"
-                class="hidden lg:flex space-x-6 justify-center border-2 border-orange-100 rounded-full ml-72">
-                <a href="index.php" class="hover:bg-white hover:text-black rounded-full px-3 py-1">accueil</a>
+            <nav id="menu"
+                class="hidden lg:flex flex-col gap-5 justify-center mx-auto items-center align-center">
+                <a href="index.php"
+                    class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
+                        Home </span> Accueil
+                </a>
                 <a href="activite.php"
-                    class="hover:bg-white hover:text-black rounded-full px-3 py-1 bg-white text-black">Activite</a>
-                <a href="reservation.php" class="hover:bg-white hover:text-black rounded-full px-3 py-1">Reservation</a>
-                <a href="client.php" class="hover:bg-white hover:text-black rounded-full px-3 py-1">Client</a>
-              </nav>
+                    class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
+                        kayaking </span> Activite
+                </a>
+                <a href="reservation.php"
+                    class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
 
-
-               <!-- <div class=" w-full p-2">
-                    <span class="text-[#264180] text-xl font-semibold"> Gestion des activites</span>
-                    <hr class="my-1">
-                    <div class="flex">
-                        <div id="btnOpenForm"
-                            class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
-                           
-                            <form id="form-ajout-activite" action="activite.php" method="POST">
-                            <button class="mx-auto flex items-center"><span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
-                                    kayaking </span>Ajouter
-                                </button>
-                              </form>
-                           
-                        </div>
-                        <div id="" onclick="afficheListActivite()"
-                            class="text-orange-400 flex items-center m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg  hover:scale-[1.1]  hover:text-gray-800">
-                            <p class="flex items-center">
-                                <span class="material-symbols-outlined cursor-pointer p-1 lg:text-4xl ">
-
-                                    list
-                                </span>
-                                activite
-
-
-                              
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class=" w-full  p-2">
-                    <span class="text-[#264180] text-xl font-semibold"> Gestion des reservations</span>
-                    <hr class="my-1">
-                    <div class="flex">
-                        <div id="btnOpenForm"
-                            class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
-                         
-
-                                <form id="form-ajout-reservation" action="reservation.php" method="POST">
-                                <button class="mx-auto flex items-center"><span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
-                                    travel</span> Ajouter
-                                </button>
-                              </form>
-                          
-                        </div>
-                        <div id="" onclick="afficheListreservation()"
-                            class="text-orange-400 flex items-center m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg  hover:scale-[1.1]  hover:text-gray-800">
-                            <p class="flex items-center">
-                                <span class="material-symbols-outlined cursor-pointer p-1 lg:text-4xl ">
-                                    list
-                                </span>
-                                reservation
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class=" w-full  p-2">
-                    <span class="text-[#264180] text-xl font-semibold"> Gestion des clients</span>
-                    <hr class="my-1">
-                    <div class="flex">
-                        <div id="btnOpenForm"
-                            class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
-                            
-
-                            <form id="form-ajout-client" action="client.php" method="POST">
-                                <button class="mx-auto flex items-center"><span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
-                                person_add</span> Ajouter
-                                </button>
-                              </form>
-                        </div>
-                        <div id="" onclick="afficheListCLient()"
-                            class="text-orange-400 flex items-center m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg  hover:scale-[1.1]  hover:text-gray-800">
-                            <p class="flex items-center">
-                                <span class="material-symbols-outlined cursor-pointer p-1 lg:text-4xl ">
-
-                                    list
-                                </span>
-                                Clients
-
-
-                                
-                            </p>
-                        </div>
-                    </div>
-                </div>-->
-           
-</aside>
-<div>
-    <header class=" text-black p-4 lg:my-4 ">
-        <div class="container mx-auto flex justify-between items-center">
-        
-
-            <div class="lg:hidden ml-auto order-3">
-                <button id="menu-button" class="text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        class="w-8 h-8">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-
-           
-
-            <div class="flex space-x-6 lg:ml-auto lg:flex-row flex-1  items-center  lg:justify-end">
-                <div class="relative flex">
-                    <input type="text" id="champRecherche" placeholder="Rechercher"
-                        class=" m-2.5 p-1 border border-gray-300 w-32 rounded-full text-black" oninput="rechercher()">
-                    <img src="./img/Search.png" alt="search logo" class=" absolute right-5 top-2.5">
-                </div>
-                <a href="#" class="text-white">
-                    <img src="./img/User.png" alt="user logo">
+airplane_ticket
+</span> reservation
+                </a>
+                <a href="client.php"
+                    class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
+                        person_add </span> Client
                 </a>
 
-
-            </div>
-        </div>
-
-        <div id="collapsed-menu" class="lg:hidden bg-black text-white p-4 absolute w-1/3 top-10 right-0 hidden">
-            <nav class="flex flex-col items-center">
-                <a href="index.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Accueil</a>
-                <a href="activite.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Reservation</a>
-                <a href="reservation.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Contact Us</a>
-                <a href="client.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">About Us</a>
+               
             </nav>
+
+
+        </aside>
+        <div>
+            <header class=" text-black p-4 lg:my-4 ">
+                <div class="container mx-auto flex justify-between items-center">
+
+
+                    <div class="lg:hidden ml-auto order-3">
+                        <button id="menu-button" class="text-black">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" class="w-8 h-8">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+
+
+                    <div class="flex space-x-6 lg:ml-auto lg:flex-row flex-1  items-center  lg:justify-end">
+                        <div class="relative flex">
+                            <input type="text" id="champRecherche" placeholder="Rechercher"
+                                class=" m-2.5 p-1 border border-gray-300 w-32 rounded-full text-black"
+                                oninput="rechercher()">
+                            <img src="./img/Search.png" alt="search logo" class=" absolute right-5 top-2.5">
+                        </div>
+                        <a href="#" class="text-white">
+                            <img src="./img/User.png" alt="user logo">
+                        </a>
+
+
+                    </div>
+                </div>
+<!-- Menu burger-->
+                <div id="collapsed-menu" class="lg:hidden bg-black text-white p-4 absolute w-1/3 top-10 right-0 hidden">
+                    <nav class="flex flex-col items-center">
+                        <a href="index.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Accueil</a>
+                        <a href="activite.php"
+                            class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Reservation</a>
+                        <a href="reservation.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Contact
+                            Us</a>
+                        <a href="client.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">About Us</a>
+                    </nav>
+                </div>
+            </header>
+             <hr>
+
+             
+            <section  class="p-2.5 m-2.5  border-2 border-orange-100  ">
+                 <div class="flex align-center items-center">
+                    <div  id="ShowForm" class=" text-orange-400 cursor-pointer  border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800 lg:text-xl">
+                        
+                    <span class="material-symbols-outlined cursor-pointer   ">
+                        add_task </span>  Ajouter </div>
+
+                 </div>
+
+            </section>
+
+
+            <main class="flex-grow min-h-screen">
+
+                <div class=" h-full flex flex-col lg:flex-row lg:px-[20px] gap-20 relative justify-cente">
+                    <div class=" w-full ">
+                        <?php
+                        // Contenu de la page spécifique
+                        echo isset($content) ? $content : '<p>Bienvenue sur le site de réservation de voyages.</p>';
+                        ?>
+                    </div>
+
+                </div>
+
         </div>
-    </header>
-
-
-
-
-    <main class="flex-grow min-h-screen">
-
-        <div class=" h-full flex flex-col lg:flex-row lg:px-[20px] gap-20 relative justify-cente">
-            <div class=" w-full ">
-                <?php
-                // Contenu de la page spécifique
-                echo isset($content) ? $content : '<p>Bienvenue sur le site de réservation de voyages.</p>';
-                ?>
-            </div>
-    
-        </div>
-
-        </div>
-    </main>
-</div>
-</div>
+        </main>
+    </div>
+    </div>
     <footer class="">
         <!-- top footer -->
         <section class=" flex flex-col md:flex-row items-center justify-between px-8 md:px-40 mb-5 ">

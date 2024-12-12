@@ -1,3 +1,4 @@
+#### Créer la base de données et les tables (Clients, Activité, Réservations).
 CREATE DATABASE voyage;
 
 
@@ -39,6 +40,7 @@ CREATE TABLE reservation (
 
 
 
+### Mise à jour des tables: Modifier des champs des tables.
 
 alter TABLE client 
 ADD COLUMN sexe int(11) ; 
@@ -64,7 +66,7 @@ INSERT into reservation(id_client , id_activite,  date_reservation , statut )
 VALUES (1 , 1  , "08/12/2024" , 'confirmée') ; 
 
 
-
+### Insertion : Ajouter une nouvelle réservation.
 INSERT INTO activite (titre, description, destination, prix, date_debut, date_fin, place_disponible) 
 VALUES 
 ("Safari Africain", "Expérience inoubliable dans la savane", "Kenya", 1500, "2025-01-10", "2025-01-20", 20),
@@ -96,17 +98,18 @@ VALUES
 
 select r.id_reservation , c.nom ,  c.prenom , a.titre , r.statut , r.montant , r.date_reservation  from reservation r  inner join client c on r.id_client = c.id_client inner join activite a on a.id_activite = r.id_activite
 
-
+### Mise à jour : Modifier les détails d’une Activité. 
 UPDATE client SET nom = "Ines", telephone = "0600000" WHERE id_client=1;
 
 UPDATE activite
 SET titre = "Voyage au Paradis", prix=20000
 WHERE id_activite =1 ;
 
+### Suppression : Supprimer une réservation. 
 
 delete from reservation where id_client = 1  ; 
 
-
+### Écrire une requête de jointure entre les tables (ex. récupérer les détails des activités réservés par un client).
 SELECT a.* from activite as a
 INNER join reservation as r
 on a.id_activite = r.id_activite

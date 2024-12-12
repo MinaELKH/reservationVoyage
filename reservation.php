@@ -3,12 +3,22 @@ include 'db.php';
 ob_start();
 $title = "Gestion des reservation";
 ?>
+ <?php
+                    $query = "select titre from activite" ;
+                    $result = mysqli_query($conn,$query); 
+                    while($row = mysqli_fetch_assoc($resultat)){
+                             echo $row ; 
+                    }
+                    echo'<label for="id_activite" class="block font-medium mb-1">Activité ID</label>
+                    <input id="id_activite" name="id_activite" type="number" placeholder="activité"
+                        class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm">
+                    </div>' ; 
+                      ?>
 
 
 
 
-
-<div id="modal" class="fixed inset-0 flex items-center z-50 justify-center bg-white bg-opacity-50">
+<div id="modal" class=" hidden fixed inset-0 flex items-center z-50 justify-center bg-white bg-opacity-50">
     <div class="relative p-6 shadow-xl rounded-lg bg-white text-gray-900 overflow-y-auto lg:w-1/3">
         <span id="closeForm"
             class="absolute right-4 top-4 text-gray-600 hover:text-gray-900 cursor-pointer material-symbols-outlined text-2xl">cancel</span>
@@ -25,10 +35,17 @@ $title = "Gestion des reservation";
                         class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm">
                 </div>
                 <div>
-                    <label for="id_activite" class="block font-medium mb-1">Activité ID</label>
-                    <input id="id_activite" name="id_activite" type="number" placeholder="ID de l'activité"
+                    <?php
+                    $query = "select titre from activite" ;
+                    $result = mysqli_query($conn,$query); 
+                    while($row = mysqli_fetch_assoc($resultat)){
+                             echo $row ; 
+                    }
+                    echo'<label for="id_activite" class="block font-medium mb-1">Activité ID</label>
+                    <input id="id_activite" name="id_activite" type="number" placeholder="activité"
                         class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm">
-                </div>
+                    </div>' ; 
+                      ?>
                 <div>
                     <label for="statut" class="block font-medium mb-1">Statut</label>
                     <select id="statut" name="statut"
@@ -79,7 +96,7 @@ inner join activite as a  on a.id_activite = r.id_activite
 inner join  client as c  on c.id_client = r.id_client";
 $resultat = mysqli_query($conn, $query_select);
 if ($resultat) {
-    echo "<div><table><thead><tr><th>id reservation</th><th>client</th><th>activite</th><th>statut</th><th>date reservation</th></tr></thead><tbody>";
+    echo "<div><table><thead><tr><th>id reservation</th><th>client</th><th>activite</th><th>statut</th><th>date reservation</th><th>Action</th></tr></thead><tbody>";
     while ($row = mysqli_fetch_assoc($resultat)) {
         echo "<tr>
         <td>{$row["id_reservation"]}</td>
@@ -87,7 +104,7 @@ if ($resultat) {
         <td>{$row["titre"]}</td>
         <td>{$row["statut"]}</td>
         <td>{$row["date_reservation"]}</td>
-      
+        <td><
         </tr>";
     }
     echo "</tbody></table></div>";
