@@ -2,8 +2,7 @@
 include 'db.php';
 ob_start(); 
 $title = "Gestion des activites";
-echo'<h2>Liste des activites</h2>';
-affiche($conn)
+
 ?>
 
 
@@ -84,21 +83,46 @@ if (isset($_POST['ajouter'])) {
     $sql = "INSERT INTO activite (titre, description, destination, prix, date_debut, date_fin, place_disponible) 
             VALUES ('$titre', '$description', '$destination', '$prix', '$date_debut', '$date_fin', '$place_disponible')";
 
-    mysqli_query($conn , $sql) ;
-    
-    if (mysqli_affected_rows($conn)) {// https://www.w3schools.com/php/func_mysqli_affected_rows.asp   
-        //recupere le nb de ligne ajouter ou modifier ou supprmer - 
-        //en general il retunrn nbr de ligne affecte lors de dernier query execute dans cet exemple   
-        // mysqli_query($conn , $sql);    nbr ligne ajoute au table client
+    mysqli_query($conn, $sql);
+
+    if (mysqli_affected_rows($conn)) { 
         echo "<p>Client ajouté avec succès !</p>";
         header("Location: activite.php");
-        exit;
+        exit; 
     } else {
         echo "<p>Erreur : " . mysqli_error($conn) . "</p>";
     }
 }
 
+
+//https://www.w3schools.com/php/php_mysql_prepared_statements.asp
+// methode plus securise car il prepare la requete avant de l appler en plus il consomme
+if (isset($_POST["delete"])) {
+    $id = intval($_POST["delete"]); // S'assurer que l'ID est un entier
+    echo "id : ".$id;
+    // Préparer la requête SQL
+    try{
+    $query = "DELETE FROM activite WHERE id_activite = ?";
+    $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "i", $id);
+       mysqli_stmt_execute($stmt);
+       mysqli_stmt_close($stmt);
+        header("Location: activite.php");
+            exit;
+        }
+        catch(mysqli_sql_exception $e){
+         $code = $e->getcode(); 
+         if($code=== 1451){
+         echo "<div class='text-red-500  text-xl semi-bold  bg-white opacity-70'>Désolé, vous ne pouvez pas supprimer cette activite car il est lié à d'autres enregistrements. </div>" ;
+        } else {
+            echo "<div class='text-red-500  text-xl semi-bold  bg-white opacity-70'>{$e->getmessage()} </div>" ;
+        } 
+    
+        }
+        }
 // Afficher les clients
+echo'<h2>Liste des activites</h2>';
+affiche($conn) ; 
 function affiche($conn){
     $sql = "SELECT * FROM activite";
     $result = mysqli_query($conn, $sql);
@@ -142,35 +166,7 @@ function affiche($conn){
     }
 }
 
-//https://www.w3schools.com/php/php_mysql_prepared_statements.asp
-if (isset($_POST["delete"])) {
-    echo "Test suppression"; 
-    $id = intval($_POST["delete"]); // S'assurer que l'ID est un entier
-    echo "id : ".$id;
-    // Préparer la requête SQL
-    $query = "DELETE FROM activite WHERE id_activite = ?";
-    $stmt = mysqli_prepare($conn, $query);
-    echo "Test suppression1".$id; 
-    if ($stmt) {
-        // Lier le paramètre
-        mysqli_stmt_bind_param($stmt, "i", $id);
-        echo "Test suppression2"; 
-        // Exécuter la requête
-        if (mysqli_stmt_execute($stmt)) {
-            echo "Activité supprimée avec succès.";
-            header("Location: activite.php");
-            exit;
-            
-        } else {
-            echo "Erreur lors de la suppression : " . mysqli_stmt_error($stmt);
-        }
 
-        // Fermer la déclaration
-        mysqli_stmt_close($stmt);
-    } else {
-        echo "Erreur de préparation de la requête : " . mysqli_error($conn);
-    }
-}
 mysqli_close($conn);
 ?>
 <?php

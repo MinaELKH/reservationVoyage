@@ -1,19 +1,9 @@
 <?php
 include 'db.php';
 ob_start();
-$title = "Gestion des reservation";
+$title = "Gestion des reservations";
 ?>
- <?php
-                    $query = "select titre from activite" ;
-                    $result = mysqli_query($conn,$query); 
-                    while($row = mysqli_fetch_assoc($resultat)){
-                             echo $row ; 
-                    }
-                    echo'<label for="id_activite" class="block font-medium mb-1">Activité ID</label>
-                    <input id="id_activite" name="id_activite" type="number" placeholder="activité"
-                        class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm">
-                    </div>' ; 
-                      ?>
+              
 
 
 
@@ -30,22 +20,33 @@ $title = "Gestion des reservation";
             <input id="id_input" type="hidden" value="-1">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="id_client" class="block font-medium mb-1">Client ID</label>
-                    <input id="id_client" name="id_client" type="number" placeholder="ID du client"
-                        class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm">
+                    <label for="id_client" class="block font-medium mb-1">Client</label>
+                    <?php
+                    $query = "select id_client , nom , prenom  from client" ;
+                    $result = mysqli_query($conn,$query); 
+                    echo"<select name='id_client'  class='inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm'> 
+                     <option value=''> Choisir Activite </option>" ; 
+                    while($row = mysqli_fetch_assoc($result)){
+                        echo"
+                        <option value={$row["id_client"]}> {$row["nom"]} {$row["prenom"]}   </option>" ; 
+                    }
+                     echo"</select>"
+                    ?>
                 </div>
                 <div>
+                    <label for="id_activite" class="block font-medium mb-1">Activité</label>
                     <?php
-                    $query = "select titre from activite" ;
+                    $query = "select id_activite ,  titre from activite" ;
                     $result = mysqli_query($conn,$query); 
-                    while($row = mysqli_fetch_assoc($resultat)){
-                             echo $row ; 
+                    echo"<select name='id_activite'  class='inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm'> 
+                     <option value=''> Choisir Activite </option>" ; 
+                    while($row = mysqli_fetch_assoc($result)){
+                        echo"
+                        <option value={$row["id_activite"]}> {$row["titre"]}  </option>" ; 
                     }
-                    echo'<label for="id_activite" class="block font-medium mb-1">Activité ID</label>
-                    <input id="id_activite" name="id_activite" type="number" placeholder="activité"
-                        class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm">
-                    </div>' ; 
-                      ?>
+                     echo"</select>"
+                    ?>
+                </div>
                 <div>
                     <label for="statut" class="block font-medium mb-1">Statut</label>
                     <select id="statut" name="statut"
@@ -55,11 +56,13 @@ $title = "Gestion des reservation";
                         <option value="Annulée">Annulée</option>
                     </select>
                 </div>
+
                 <div>
-                    <label for="montant" class="block font-medium mb-1">Montant</label>
-                    <input id="montant" name="montant" type="text" placeholder="Montant"
-                        class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm">
+                    <label for="date_reservation" class="block font-medium mb-1">Date reservation</label>
+                    <input id="date_reservation" name="date_reservation" type="date" placeholder="Date"
+                    class="inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm">
                 </div>
+               
             </div>
             <div class="flex justify-center">
                 <button type="submit" name="ajouter" id="submitreservation"
@@ -75,15 +78,14 @@ $title = "Gestion des reservation";
 <?php
 
 if (isset($_POST['ajouter'])) {
-
     $id_client = mysqli_real_escape_string($conn, $_POST['id_client']);
     $id_activite = mysqli_real_escape_string($conn, $_POST['id_activite']);
     $statut = mysqli_real_escape_string($conn, $_POST['statut']);
-    $date_reservation = date("Y-m-d H:i:s");  // Date et heure actuelle pour la réservation
-    $montant = mysqli_real_escape_string($conn, $_POST['montant']);
-
-    $sql = "INSERT INTO reservation (id_client, id_activite, statut, date_reservation, montant) 
-        VALUES ('$id_client', '$id_activite', '$statut', '$date_reservation', '$montant')";
+    $date_reservation =mysqli_real_escape_string($conn, $_POST['date_reservation']);;  // Date et heure actuelle pour la réservation
+    $stmt = mysqli_prepare($conn ,"INSERT INTO reservation (id_client, id_activite, statut, date_reservation)  VALUES (?, ?,?,?)");
+    mysqli_stmt_bind_param($stmt , "iisd" , $id_client,$id_activite,$statut,$date_reservation);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
     if (mysqli_query($conn, $sql)) {
         echo "Réservation ajoutée avec succès";
     } else {
@@ -91,6 +93,22 @@ if (isset($_POST['ajouter'])) {
     }
 }
 
+if(isset($_POST["delete"])){
+    try {
+        $id=$_POST["delete"];  //  $_POST["delete"]   btn delete prend value= id_reservation 
+        $query="delete from reservation where id=?";
+        $stmt = mysqli_prepare($conn , $query);
+        mysqli_stmt_bind_param($stmt , "i" , $id );
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close();
+        header("location: reservation.php");
+        exit;
+    } catch (mysqli_sql_execption $e) {
+        echo "<div class='text-red-500  text-xl semi-bold  bg-white opacity-70'>{$e->getmessage()} </div>" ;
+    }
+
+}
+//affichage  : 
 $query_select = "select r.id_reservation ,a.titre ,  c.nom  , c.prenom , r.statut ,r.date_reservation   from reservation as r  
 inner join activite as a  on a.id_activite = r.id_activite 
 inner join  client as c  on c.id_client = r.id_client";
@@ -98,20 +116,33 @@ $resultat = mysqli_query($conn, $query_select);
 if ($resultat) {
     echo "<div><table><thead><tr><th>id reservation</th><th>client</th><th>activite</th><th>statut</th><th>date reservation</th><th>Action</th></tr></thead><tbody>";
     while ($row = mysqli_fetch_assoc($resultat)) {
+        $id = $row["id_reservation"] ; 
         echo "<tr>
         <td>{$row["id_reservation"]}</td>
         <td>{$row["nom"]} {$row["prenom"]}</td>
         <td>{$row["titre"]}</td>
         <td>{$row["statut"]}</td>
         <td>{$row["date_reservation"]}</td>
-        <td><
+        <td> <form   action='reservation.php' method='post'>
+                    <div class='flex'>
+                        <button type='submit' name='delete' value='$id'>
+                            <span class='text-red-400 cursor-pointer material-symbols-outlined'>
+                                delete
+                            </span>
+                        </button>
+        <button type='submit' name='edit' value='$id'>
+            <span class='text-yellow-400 cursor-pointer material-symbols-outlined'>
+                edit
+            </span>
+        </button>
+    </div></td>
         </tr>";
     }
     echo "</tbody></table></div>";
 }
 
 
-// Fermeture de la connexion
+
 mysqli_close($conn);
 ?>
 <?php

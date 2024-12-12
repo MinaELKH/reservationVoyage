@@ -10,7 +10,8 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>FUT</title>
+    <title>Voyage</title>
+    <link rel="icon" href="img/logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="icon" href="img/logo1.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"> <!-- icon reseau sociaux-->
@@ -23,35 +24,33 @@
 
 <body class=" flex flex-col relative bg-[url('img/map3.png')] bg-[#FAF5F1] no-repeat bg-cover    kanit-medium">
     <div class=" flex ">
-        <aside class="   bg-white bg-opacity-80   border-2 border-orange-100 rounded-xl w-1/4 p-2 pt-10">
-            <div>
-                <img class="mx-auto" src="img/logo.png" width="100" alt="logo">
+        <aside class="   bg-white bg-opacity-80   border-2 border-orange-100 rounded-xl w-1/5 p-2 pt-10">
+            <div >
+                <img class="mx-auto" src="img/logo.png" width="150" alt="logo">
             </div>
-            <div class="  p-4 bg-white bg-opacity-40 flex justify-between items-center">
-                <span class="text-[#264180] text-xl font-semibold"> Gestion d'agence </span>
-            </div>
+            
 
             <nav id="menu"
-                class="hidden lg:flex flex-col gap-5 justify-center mx-auto items-center align-center">
+                class="hidden lg:flex flex-col justify-center mx-auto items-center align-center mt-10">
                 <a href="index.php"
-                    class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    class="text-orange-400 flex items-center m-2 w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
                     <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
                         Home </span> Accueil
                 </a>
                 <a href="activite.php"
-                    class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    class="text-orange-400 flex items-center  m-2  w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
                     <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
                         kayaking </span> Activite
                 </a>
                 <a href="reservation.php"
-                    class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    class="text-orange-400 flex items-center m-2   w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
                     <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
 
 airplane_ticket
 </span> reservation
                 </a>
                 <a href="client.php"
-                    class="text-orange-400 flex items-center gap-5 m-2 w-1/2 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    class="text-orange-400 flex items-center gap-5 m-2 w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
                     <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
                         person_add </span> Client
                 </a>
@@ -61,7 +60,7 @@ airplane_ticket
 
 
         </aside>
-        <div>
+        <div  class="w-full">
             <header class=" text-black p-4 lg:my-4 ">
                 <div class="container mx-auto flex justify-between items-center">
 
@@ -79,12 +78,7 @@ airplane_ticket
 
 
                     <div class="flex space-x-6 lg:ml-auto lg:flex-row flex-1  items-center  lg:justify-end">
-                        <div class="relative flex">
-                            <input type="text" id="champRecherche" placeholder="Rechercher"
-                                class=" m-2.5 p-1 border border-gray-300 w-32 rounded-full text-black"
-                                oninput="rechercher()">
-                            <img src="./img/Search.png" alt="search logo" class=" absolute right-5 top-2.5">
-                        </div>
+                        
                         <a href="#" class="text-white">
                             <img src="./img/User.png" alt="user logo">
                         </a>
@@ -108,14 +102,23 @@ airplane_ticket
 
              
             <section  class="p-2.5 m-2.5  border-2 border-orange-100  ">
-                 <div class="flex align-center items-center">
+               
+                 <div class="flex align-center justify-between items-center">
+                 <div><h2 class="text-2xl text-orange-500 "> <?php echo $title; ?><h2>
+                 </div>
                     <div  id="ShowForm" class=" text-orange-400 cursor-pointer  border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800 lg:text-xl">
                         
                     <span class="material-symbols-outlined cursor-pointer   ">
                         add_task </span>  Ajouter </div>
+                 
 
-                 </div>
-
+                 <div class="relative flex">
+                            <input type="text" id="champRecherche" placeholder="Rechercher"
+                                class=" m-2.5 p-1 border border-gray-300 w-32 rounded-full text-black"
+                                oninput="rechercher()">
+                            <img src="./img/Search.png" alt="search logo" class=" absolute right-5 top-2.5">
+                        </div>
+                        </div>
             </section>
 
 

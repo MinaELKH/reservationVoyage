@@ -3,7 +3,7 @@ include 'db.php';
 ob_start(); 
 $title = "Gestion des Clients";
 ?>
-<h2>Liste des Clients</h2>
+
 
 
 
@@ -87,30 +87,55 @@ if (isset($_POST['ajouter'])) {
 
     $sql = "INSERT INTO client (nom, prenom ,  email ,  telephone , adresse , date_naissance) 
     VALUES ('$nom', '$prenom' , '$email' ,   '$telephone' , '$adresse' , '$date_naissance')";
-
-     mysqli_query($conn , $sql); 
-
-
+    mysqli_query($conn , $sql); 
+   
     // echo (mysqli_affected_rows($conn))   ; 
-    
-    if (mysqli_affected_rows($conn)) {// https://www.w3schools.com/php/func_mysqli_affected_rows.asp   
+    // https://www.w3schools.com/php/func_mysqli_affected_rows.asp   
         //recupere le nb de ligne ajouter ou modifier ou supprmer - 
         //en general il retunrn nbr de ligne affecte lors de dernier query execute dans cet exemple   
         // mysqli_query($conn , $sql);    nbr ligne ajoute au table client
-        echo "<p>Client ajouté avec succès !</p>";
+    if (mysqli_affected_rows($conn)) {
+       // echo "<p>Client ajouté avec succès !</p>";
+        header("Location: client.php");
+        exit; 
+      
     } else {
         echo "<p>Erreur : " . mysqli_error($conn) . "</p>";
     }
 }
 
+
+//delete 
+if(isset($_POST["delete"])){
+    // methode sans prepartion il peut cause des injection , elle est defavorable 
+    $id=$_POST["delete"];
+    /*$query="delete from client where id_client=$id" ;
+    mysqli_query($conn , $query); */
+    try {
+    $query="delete from client where id_client=$id" ;
+    mysqli_query($conn , $query);
+    //echo "<div class='text-green-500  text-xl semi-bold  '> le client est supprimé avec succes  </div>" ;
+    header("Location: client.php");
+    }catch(mysqli_sql_exception $e){
+        $code = $e->getCode();  // je recupere le numero d erreur 
+        if($code === 1451 ){
+            echo "<div class='text-red-500  text-xl semi-bold  bg-white opacity-70'>Désolé, vous ne pouvez pas supprimer ce client car il est lié à d'autres enregistrements. </div>" ;
+        }else{
+            echo "<div class='text-red-500  text-xl semi-bold  bg-white opacity-70'> {$e->getmessage()} </div>" ;
+        }
+    }
+   
+
+}
 // Afficher les clients
 $sql = "SELECT * FROM client";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
-    echo "<div id='listClient' ><table border='1'><thead>";
-    echo "<tr><th>ID</th><th>Nom</th><th>Email</th><th>Telephne</th><th>Adresse</th><th>Date_naissance/th><th>Action</th><th>Action</th></tr></thead><tbody>";
+    echo " <div id='listClient' ><table border='1'><thead>";
+    echo "<tr><th>ID</th><th>Nom</th><th>Email</th><th>Telephne</th><th>Adresse</th><th>Date_naissance/th><th>Action</th></tr></thead><tbody>";
     while ($row = mysqli_fetch_assoc($result)) {
+        $id= $row['id_client'] ; 
         echo "<tr>
             <td>{$row['id_client']}</td>
             <td>{$row['nom']} {$row['prenom']}</td>       
@@ -119,8 +144,20 @@ if (mysqli_num_rows($result) > 0) {
                 <td>{$row['adresse']}</td>
             <td>{$row['date_naissance']}</td>
             <td class='flex align-center'>
-                <a href='edit_client.php?id={$row['id_client']}'>Modifier</a> | 
-                <a href='delete_client.php?id={$row['id_client']}'>Supprimer</a>
+                 <form   action='client.php' method='post'>
+                    <div class='flex'>
+                        <button type='submit' name='delete' value='$id'>
+                            <span class='text-red-400 cursor-pointer material-symbols-outlined'>
+                                delete
+                            </span>
+                        </button>
+        <button type='submit' name='edit' value='$id'>
+            <span class='text-yellow-400 cursor-pointer material-symbols-outlined'>
+                edit
+            </span>
+        </button>
+    </div>
+</form>
             </td>
         </tr>";
     }
@@ -128,6 +165,8 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo "<p>Aucun client trouvé.</p>";
 }
+
+
 mysqli_close($conn);
 ?>
 <?php
