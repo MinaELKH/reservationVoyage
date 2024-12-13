@@ -2,7 +2,24 @@
 include 'db.php';
 ob_start();
 $title = "Gestion des reservations";
-?>
+
+
+
+$query = "select id_activite ,  titre from activite" ;
+$result = mysqli_query($conn,$query); 
+$serachActivite = "<form action='' method='post'> 
+                        <select name='search' onchange='this.form.submit()' class='inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm'> 
+                        <option value=''> Choisir Activite </option>" ; 
+
+                   while($row = mysqli_fetch_assoc($result)){
+                
+ $serachActivite .=              " <option value={$row["id_activite"]}> {$row["titre"]}  </option>" ; 
+                    }
+                    $serachActivite .=             "</select>" ; 
+
+
+
+?>                                                                                                                                                                                                                    
               
 
 
@@ -16,7 +33,7 @@ $title = "Gestion des reservations";
         <p id="pargErreur"
             class="hidden text-sm font-semibold px-4 py-2 mb-4 text-red-700 bg-red-100 border border-red-400 rounded">
         </p>
-        <form id="formulaire" class="flex flex-col gap-4" action="" method="post">
+        <form id="formulaire" class="flex flex-col gap-4" action="" method="POST">
             <input id="id_input" type="hidden" value="-1">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -81,26 +98,29 @@ if (isset($_POST['ajouter'])) {
     $id_client = mysqli_real_escape_string($conn, $_POST['id_client']);
     $id_activite = mysqli_real_escape_string($conn, $_POST['id_activite']);
     $statut = mysqli_real_escape_string($conn, $_POST['statut']);
-    $date_reservation =mysqli_real_escape_string($conn, $_POST['date_reservation']);;  // Date et heure actuelle pour la réservation
-    $stmt = mysqli_prepare($conn ,"INSERT INTO reservation (id_client, id_activite, statut, date_reservation)  VALUES (?, ?,?,?)");
-    mysqli_stmt_bind_param($stmt , "iisd" , $id_client,$id_activite,$statut,$date_reservation);
+    $date_reservation =mysqli_real_escape_string($conn, $_POST['date_reservation']); // Date et heure actuelle pour la réservation
+    $query =  "INSERT INTO reservation (id_client, id_activite, statut, date_reservation)  VALUES (?, ?,?,?)" ; 
+    $stmt = mysqli_prepare($conn ,$query);
+    mysqli_stmt_bind_param($stmt , "iiss" , $id_client , $id_activite , $statut , $date_reservation);
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
-    if (mysqli_query($conn, $sql)) {
+   
+    if (  mysqli_stmt_execute($stmt)) {
         echo "Réservation ajoutée avec succès";
     } else {
         echo "Erreur : " . $sql . "<br>" . mysqli_error($conn);
     }
+    mysqli_stmt_close($stmt);
 }
 
 if(isset($_POST["delete"])){
     try {
+        $search=$_POST["search"];
         $id=$_POST["delete"];  //  $_POST["delete"]   btn delete prend value= id_reservation 
-        $query="delete from reservation where id=?";
+        $query="delete from reservation where id_reservation=?";
         $stmt = mysqli_prepare($conn , $query);
         mysqli_stmt_bind_param($stmt , "i" , $id );
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close();
+        mysqli_stmt_close($stmt);
         header("location: reservation.php");
         exit;
     } catch (mysqli_sql_execption $e) {
@@ -109,9 +129,25 @@ if(isset($_POST["delete"])){
 
 }
 //affichage  : 
+
+
+// affichage recherche 
+if(isset($_POST["search"])){
+    $id = intval($_POST["search"]);
+    $query_select = "select r.id_reservation ,a.titre ,  c.nom  , c.prenom , r.statut ,r.date_reservation   from reservation as r  
+    inner join activite as a  on a.id_activite = r.id_activite 
+    inner join  client as c  on c.id_client = r.id_client
+    where r.id_activite = $id" ; 
+
+// affichage de all reservation
+}else {
 $query_select = "select r.id_reservation ,a.titre ,  c.nom  , c.prenom , r.statut ,r.date_reservation   from reservation as r  
 inner join activite as a  on a.id_activite = r.id_activite 
 inner join  client as c  on c.id_client = r.id_client";
+}
+
+
+
 $resultat = mysqli_query($conn, $query_select);
 if ($resultat) {
     echo "<div><table><thead><tr><th>id reservation</th><th>client</th><th>activite</th><th>statut</th><th>date reservation</th><th>Action</th></tr></thead><tbody>";
@@ -131,19 +167,18 @@ if ($resultat) {
                             </span>
                         </button>
         <button type='submit' name='edit' value='$id'>
-            <span class='text-yellow-400 cursor-pointer material-symbols-outlined'>
+           <!-- <span class='text-yellow-400 cursor-pointer material-symbols-outlined'>
                 edit
-            </span>
+            </span>-->
         </button>
     </div></td>
         </tr>";
     }
     echo "</tbody></table></div>";
+
 }
-
-
-
 mysqli_close($conn);
+
 ?>
 <?php
 $content = ob_get_clean();

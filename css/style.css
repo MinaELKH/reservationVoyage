@@ -24,3 +24,15 @@ th{
 td{
     color: #38475d;  
 }
+
+
+.card {
+    display: inline-block;
+    width: 200px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

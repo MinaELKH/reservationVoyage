@@ -33,24 +33,24 @@
             <nav id="menu"
                 class="hidden lg:flex flex-col justify-center mx-auto items-center align-center mt-10">
                 <a href="index.php"
-                    class="text-orange-400 flex items-center m-2 w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    class="text-orange-400 flex   justify-center  items-center m-2 w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
                     <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
                         Home </span> Accueil
                 </a>
                 <a href="activite.php"
-                    class="text-orange-400 flex items-center  m-2  w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    class="text-orange-400 flex items-center justify-center m-2  w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
                     <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
                         kayaking </span> Activite
                 </a>
                 <a href="reservation.php"
-                    class="text-orange-400 flex items-center m-2   w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    class="text-orange-400 flex items-center m-2  justify-center    w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
                     <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
 
 airplane_ticket
 </span> reservation
                 </a>
                 <a href="client.php"
-                    class="text-orange-400 flex items-center gap-5 m-2 w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
+                    class="text-orange-400 flex items-center justify-center gap-5 m-2 w-2/3 border-2  cursor-pointer border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800">
                     <span class="material-symbols-outlined cursor-pointer  lg:text-4xl ">
                         person_add </span> Client
                 </a>
@@ -61,9 +61,16 @@ airplane_ticket
 
         </aside>
         <div  class="w-full">
-            <header class=" text-black p-4 lg:my-4 ">
-                <div class="container mx-auto flex justify-between items-center">
+            <header class="p-5 lg:my-10 ">
+                <div class=" mx-auto flex justify-between items-center">
+                <h2 class="text-4xl text-indigo-800  "> <?php echo $title; ?></h2>
 
+                <div class="flex  lg:ml-auto lg:flex-row flex-1  items-center  lg:justify-end">
+                        <a href="#" class="text-white">
+                            <img src="./img/User.png" alt="user logo">
+                        </a>
+
+                </div>
 
                     <div class="lg:hidden ml-auto order-3">
                         <button id="menu-button" class="text-black">
@@ -77,14 +84,7 @@ airplane_ticket
 
 
 
-                    <div class="flex space-x-6 lg:ml-auto lg:flex-row flex-1  items-center  lg:justify-end">
-                        
-                        <a href="#" class="text-white">
-                            <img src="./img/User.png" alt="user logo">
-                        </a>
 
-
-                    </div>
                 </div>
 <!-- Menu burger-->
                 <div id="collapsed-menu" class="lg:hidden bg-black text-white p-4 absolute w-1/3 top-10 right-0 hidden">
@@ -100,26 +100,20 @@ airplane_ticket
             </header>
              <hr>
 
-             
-            <section  class="p-2.5 m-2.5  border-2 border-orange-100  ">
+             <div class=" flex  gap-5  mb-8      p-2 border-b-2 border-y-indigo-300  ">
+          <button id="ShowForm">
+            <span class="material-symbols-outlined  text-indigo-900   hover:text-green-500">
+              add_task
+            </span>
+</button>
+                 <?php  if($title=="Gestion des reservations") {echo $serachActivite;} ?>
+         </div>
+         
                
-                 <div class="flex align-center justify-between items-center">
-                 <div><h2 class="text-2xl text-orange-500 "> <?php echo $title; ?><h2>
-                 </div>
-                    <div  id="ShowForm" class=" text-orange-400 cursor-pointer  border-orange-400  rounded-lg   hover:scale-[1.1]  hover:text-gray-800 lg:text-xl">
-                        
-                    <span class="material-symbols-outlined cursor-pointer   ">
-                        add_task </span>  Ajouter </div>
-                 
+          
 
-                 <div class="relative flex">
-                            <input type="text" id="champRecherche" placeholder="Rechercher"
-                                class=" m-2.5 p-1 border border-gray-300 w-32 rounded-full text-black"
-                                oninput="rechercher()">
-                            <img src="./img/Search.png" alt="search logo" class=" absolute right-5 top-2.5">
-                        </div>
-                        </div>
-            </section>
+
+        
 
 
             <main class="flex-grow min-h-screen">
@@ -127,7 +121,7 @@ airplane_ticket
                 <div class=" h-full flex flex-col lg:flex-row lg:px-[20px] gap-20 relative justify-cente">
                     <div class=" w-full ">
                         <?php
-                        // Contenu de la page spécifique
+                        // Main contient les autres pages 
                         echo isset($content) ? $content : '<p>Bienvenue sur le site de réservation de voyages.</p>';
                         ?>
                     </div>
@@ -139,7 +133,7 @@ airplane_ticket
     </div>
     </div>
     <footer class="">
-        <!-- top footer -->
+
         <section class=" flex flex-col md:flex-row items-center justify-between px-8 md:px-40 mb-5 ">
             <img src="img/logo.png" width="100" alt="logo">
             <div class="text-orange-500">
@@ -193,7 +187,6 @@ airplane_ticket
             <hr class="border-t border-orange-400 opacity-50">
         </div>
 
-        <!-- footer-bottom -->
         <div class="text-center pt-4 ">
             <p class="text-orange-300  p-4">© 2025-2030 Copyright VoYa
             </p>
