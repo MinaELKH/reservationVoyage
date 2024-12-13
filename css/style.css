@@ -26,13 +26,14 @@ td{
 }
 
 
-.card {
-    display: inline-block;
-    width: 200px;
-    padding: 20px;
-    margin: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.listeTable {
+    overflow-x: auto; /* Permet le scroll horizontal */
+    -webkit-overflow-scrolling: touch; /* Défilement fluide sur mobile */
+    width: 100%; /* S'adapte au conteneur parent */
+}
+
+@media (max-width: 768px) {
+    table {
+        min-width: 600px; /* Largeur minimale pour activer le défilement si le contenu dépasse */
+    }
 }

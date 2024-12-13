@@ -7,7 +7,7 @@ $title = "Gestion des reservations";
 
 $query = "select id_activite ,  titre from activite" ;
 $result = mysqli_query($conn,$query); 
-$serachActivite = "<form action='' method='post'> 
+$serachActivite = " <div ><form action='' method='post'> 
                         <select name='search' onchange='this.form.submit()' class='inputformulaire w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-sm'> 
                         <option value=''> Choisir Activite </option>" ; 
 
@@ -15,7 +15,7 @@ $serachActivite = "<form action='' method='post'>
                 
  $serachActivite .=              " <option value={$row["id_activite"]}> {$row["titre"]}  </option>" ; 
                     }
-                    $serachActivite .=             "</select>" ; 
+                    $serachActivite .=             "</select></form></div>" ; 
 
 
 
@@ -150,7 +150,7 @@ inner join  client as c  on c.id_client = r.id_client";
 
 $resultat = mysqli_query($conn, $query_select);
 if ($resultat) {
-    echo "<div><table><thead><tr><th>id reservation</th><th>client</th><th>activite</th><th>statut</th><th>date reservation</th><th>Action</th></tr></thead><tbody>";
+    echo "<div class='listeTable' ><table><thead><tr><th>id reservation</th><th>client</th><th>activite</th><th>statut</th><th>date reservation</th><th>Action</th></tr></thead><tbody>";
     while ($row = mysqli_fetch_assoc($resultat)) {
         $id = $row["id_reservation"] ; 
         echo "<tr>

@@ -1,7 +1,7 @@
 <?php
 include 'db.php';
 ob_start(); 
-$title = "Accueil";
+$title = "DASHBORD";
 
 $result_clients = $conn->query("SELECT COUNT(*) AS total_clients FROM client");
 $row_clients = mysqli_fetch_assoc($result_clients);
@@ -32,10 +32,9 @@ $total_statut_reservation = $row_statut_reservation['total_confirme_reservation'
 
 ?>
 
-<h2 class="text-4xl text-orange-600 text-center mb-5 "> Tableau de Bord</h2>
 
 
-<div class="grid grid-cols-3">
+<div class="grid  grid-cols-2 lg:grid-cols-3">
 <div class="inline-block w-52 p-5 m-2 text-center text-xl border border-indigo-300 rounded-lg shadow-md">
     <!-- Contenu de la carte -->
         <h3>Nombres de Clients</h3>
@@ -43,7 +42,7 @@ $total_statut_reservation = $row_statut_reservation['total_confirme_reservation'
     </div>
     <div class="inline-block w-52 p-5 m-2 text-center text-xl border border-indigo-300 rounded-lg shadow-md">
     <!-- Contenu de la carte -->
-        <h3> Nombres de Activités</h3>
+        <h3> Nombres d'Activités</h3>
         <p><?php echo $total_activites; ?></p>
     </div>
     <div class="inline-block w-52 p-5 m-2 text-center text-xl  border border-indigo-300 rounded-lg shadow-md">
@@ -60,15 +59,15 @@ $total_statut_reservation = $row_statut_reservation['total_confirme_reservation'
 
     <div class="inline-block w-52 p-5 m-2 text-center text-xl  border border-indigo-300 rounded-lg shadow-md">
     <!-- Contenu de la carte -->
-    <h3 >Nombre d'activités Réservées</h3>
+    <h3 >Nombre d'Activités Réservées</h3>
     <p c><?php echo $total_activite_reservation; ?></p>
     </div>
 
     
     <div class="inline-block w-52 p-5 m-2 text-center text-xl  border border-indigo-300 rounded-lg shadow-md">
     <!-- Contenu de la carte -->
-    <h3 >Nombre de Réservés confirmées</h3>
-    <p c><?php echo $total_statut_reservation; ?></p>
+    <h3 >Nombre de Réservation confirmées</h3>
+    <p><?php echo $total_statut_reservation; ?></p>
     </div>
 
 </div>

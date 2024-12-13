@@ -15,8 +15,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="icon" href="img/logo1.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"> <!-- icon reseau sociaux-->
-    <link rel="stylesheet" href="./styles/index.css" />
-    <script src="js/main.js" defer></script>
+    <link rel="stylesheet" href="styles/index.css" />
+    <?php  if($title!="DASHBORD") {echo "<script src='js/main.js' defer></script>";} 
+    ?>
+    <script src='js/burger.js' defer></script>
     <link rel="stylesheet" href="css/style.css" />
 
 
@@ -24,7 +26,7 @@
 
 <body class=" flex flex-col relative bg-[url('img/map3.png')] bg-[#FAF5F1] no-repeat bg-cover    kanit-medium">
     <div class=" flex ">
-        <aside class="   bg-white bg-opacity-80   border-2 border-orange-100 rounded-xl w-1/5 p-2 pt-10">
+        <aside class="hidden lg:block   bg-white bg-opacity-80   border-2 border-orange-100 rounded-xl w-1/5 p-2 pt-10">
             <div >
                 <img class="mx-auto" src="img/logo.png" width="150" alt="logo">
             </div>
@@ -61,17 +63,29 @@ airplane_ticket
 
         </aside>
         <div  class="w-full">
-            <header class="p-5 lg:my-10 ">
+            <header class="p-5 lg:my-2.5 ">
+            
                 <div class=" mx-auto flex justify-between items-center">
-                <h2 class="text-4xl text-indigo-800  "> <?php echo $title; ?></h2>
+                <div >
+                <img class="lg:hidden mx-auto" src="img/logo.png" width="150" alt="logo">
+            </div>
 
-                <div class="flex  lg:ml-auto lg:flex-row flex-1  items-center  lg:justify-end">
+                <div class="flex  lg:ml-auto lg:flex-row flex-1  items-center  justify-end">
                         <a href="#" class="text-white">
                             <img src="./img/User.png" alt="user logo">
                         </a>
 
                 </div>
-
+                <div id="menuBurger" class="lg:hidden bg-black text-white p-4 absolute w-1/3 top-10 right-0 hidden">
+                    <nav class="flex flex-col items-center">
+                        <a href="index.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">DashBoard</a>
+                        <a href="reservation.php"
+                            class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Reservation</a>
+                        <a href="activite.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Activitée
+                            Us</a>
+                        <a href="client.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Client</a>
+                    </nav>
+                </div>
                     <div class="lg:hidden ml-auto order-3">
                         <button id="menu-button" class="text-black">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -87,26 +101,28 @@ airplane_ticket
 
                 </div>
 <!-- Menu burger-->
-                <div id="collapsed-menu" class="lg:hidden bg-black text-white p-4 absolute w-1/3 top-10 right-0 hidden">
-                    <nav class="flex flex-col items-center">
-                        <a href="index.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Accueil</a>
-                        <a href="activite.php"
-                            class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Reservation</a>
-                        <a href="reservation.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">Contact
-                            Us</a>
-                        <a href="client.php" class="hover:bg-white hover:text-black rounded px-3 py-1 mb-2">About Us</a>
-                    </nav>
-                </div>
+              
             </header>
-             <hr>
+            <div class="px-2.5">
+            <hr class="border-t border-orange-400 opacity-50">
+          
+             </div>
 
-             <div class=" flex  gap-5  mb-8      p-2 border-b-2 border-y-indigo-300  ">
-          <button id="ShowForm">
-            <span class="material-symbols-outlined  text-indigo-900   hover:text-green-500">
+          
+            
+
+             <div class=" flex justify-between lg:mx-20  mb-8      p-2 border-b-2 border-y-indigo-300  ">
+
+
+             <h2 class="text-2xl text-indigo-800  "> <?php echo $title; ?></h2>
+          <div > <button class=" flex flex-row justify-around gap-2.5 text-indigo-900   hover:text-green-500 "  id="ShowForm">
+            <span class="material-symbols-outlined  ">
               add_task
-            </span>
-</button>
+            </span><p> Ajouter <p>
+          </button></div>
+          
                  <?php  if($title=="Gestion des reservations") {echo $serachActivite;} ?>
+
          </div>
          
                
@@ -132,7 +148,7 @@ airplane_ticket
         </main>
     </div>
     </div>
-    <footer class="">
+    <footer class="mt-10">
 
         <section class=" flex flex-col md:flex-row items-center justify-between px-8 md:px-40 mb-5 ">
             <img src="img/logo.png" width="100" alt="logo">
@@ -152,12 +168,12 @@ airplane_ticket
         <section class=" flex flex-col md:flex-row justify-between gap-10 sm:gap-20 px-14 py-10">
             <div class="flex flex-col justify-evenly sm:flex-row gap-10 md:gap-20 w-full text-orange-400">
                 <div>
-                    <h3 class="text-sm font-semibold mb-1">DERNIERS EFFECTIFS</h3>
+                    <h3 class="text-sm font-semibold mb-1">Activités</h3>
                     <hr class="my-2.5 border-t border-orange-400 opacity-80">
                     <div class="text-gray-800">
-                        <a href="#">Créateur d'effectifs</a>
-                        <div><a href="#">SBC</a></div>
-                        <div><a href="#">Joueurs EA FC 25</a></div>
+                        <a href="#">Surf</a>
+                        <div><a href="#">SKY</a></div>
+                        <div><a href="#">circuit</a></div>
                     </div>
                 </div>
                 <div>
@@ -178,7 +194,7 @@ airplane_ticket
                     </div>
                 </div>
 
-                <img src="img/person.png" class="w-32 h-32">
+                <img src="img/footer.jpg" class="w-32 h-32">
             </div>
 
 

@@ -223,7 +223,7 @@ $sql = "SELECT * FROM client";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
-    echo " <div id='listClient' ><table border='1'><thead>";
+    echo " <div class='listeTable' ><table border='1'><thead>";
     echo "<tr><th>ID</th><th>Nom</th><th>Email</th><th>Telephne</th><th>Adresse</th><th>Date_naissance</th><th>Action</th></tr></thead><tbody>";
     while ($row = mysqli_fetch_assoc($result)) {
         $id= $row['id_client'] ; 
@@ -234,7 +234,7 @@ if (mysqli_num_rows($result) > 0) {
                <td>{$row['telephone']}</td>
                 <td>{$row['adresse']}</td>
             <td>{$row['date_naissance']}</td>
-            <td class='flex align-center'>
+            <td class='flex align-center justify-center'>
                  <form   action='client.php' method='post'>
                     <div class='flex'>
                         <button type='submit' name='delete' value='$id'>

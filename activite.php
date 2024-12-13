@@ -121,7 +121,6 @@ if (isset($_POST["delete"])) {
         }
         }
 // Afficher les clients
-echo'<h2>Liste des activites</h2>';
 affiche($conn) ; 
 function affiche($conn){
     $sql = "SELECT * FROM activite";
@@ -129,7 +128,7 @@ function affiche($conn){
     
     if (mysqli_num_rows($result) > 0) {
     
-        echo "<div id='listactivite' ><table border='1'>";
+        echo "<div class='listeTable' ><table border='1'>";
         echo "<tr><th>ID</th><th>titre</th><th>description</th><th>prix</th><th>date_debut</th><th>date_fin</th><th>places disponibles</th><th>Action</th></tr>";
         while ($row = mysqli_fetch_assoc($result)) {
             $id=$row['id_activite'];
@@ -149,11 +148,7 @@ function affiche($conn){
                                 delete
                             </span>
                         </button>
-        <button type='submit' name='edit' value='$id'>
-            <span class='text-yellow-400 cursor-pointer material-symbols-outlined'>
-                edit
-            </span>
-        </button>
+       
     </div>
 </form>
 
