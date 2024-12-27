@@ -1,8 +1,8 @@
 <?php
-include 'db.php';
+
 ob_start();
 $title = "Gestion des reservations";
-
+require("db.php");
 
 
 $query = "select id_activite ,  titre from activite" ;
